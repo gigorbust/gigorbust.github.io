@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 980" width="2200" height="980" fill="none">
+<defs>
+<linearGradient id="reviews-gold" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F0B429"/><stop offset="1" stop-color="#F7C64E"/></linearGradient>
+<linearGradient id="reviews-orange" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F26920"/><stop offset="1" stop-color="#F98338"/></linearGradient>
+<linearGradient id="reviews-red" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#D0281E"/><stop offset="1" stop-color="#E4402F"/></linearGradient>
+<linearGradient id="reviews-deep" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#8E1A18"/><stop offset="1" stop-color="#A82520"/></linearGradient>
+<linearGradient id="reviews-char" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1F1F1F"/><stop offset="1" stop-color="#33383F"/></linearGradient>
+</defs>
+<path d="M -320.0,1251.5500000000002 L 750,540.0 Q 820,470.0 862.0,470.0 L 1078.0,470.0 Q 1120,470.0 1155.0,428.0 L 2560,-340" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1304.638 L 834,548.4 Q 904,478.4 946.0,478.4 L 1162.0,478.4 Q 1204,478.4 1239.0,436.4 L 2644,-340" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1357.726 L 918,556.8 Q 988,486.8 1030.0,486.8 L 1246.0,486.8 Q 1288,486.8 1323.0,444.8 L 2728,-340" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1410.814 L 1002,565.2 Q 1072,495.2 1114.0,495.2 L 1330.0,495.2 Q 1372,495.2 1407.0,453.2 L 2812,-340" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1463.902 L 1086,573.6 Q 1156,503.6 1198.0,503.6 L 1414.0,503.6 Q 1456,503.6 1491.0,461.6 L 2896,-340" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -320.0,1251.5500000000002 L 750,540.0 Q 820,470.0 862.0,470.0 L 1078.0,470.0 Q 1120,470.0 1155.0,428.0 L 2560,-340" stroke="url(#reviews-gold)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1304.638 L 834,548.4 Q 904,478.4 946.0,478.4 L 1162.0,478.4 Q 1204,478.4 1239.0,436.4 L 2644,-340" stroke="url(#reviews-orange)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1357.726 L 918,556.8 Q 988,486.8 1030.0,486.8 L 1246.0,486.8 Q 1288,486.8 1323.0,444.8 L 2728,-340" stroke="url(#reviews-red)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1410.814 L 1002,565.2 Q 1072,495.2 1114.0,495.2 L 1330.0,495.2 Q 1372,495.2 1407.0,453.2 L 2812,-340" stroke="url(#reviews-deep)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1463.902 L 1086,573.6 Q 1156,503.6 1198.0,503.6 L 1414.0,503.6 Q 1456,503.6 1491.0,461.6 L 2896,-340" stroke="url(#reviews-char)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

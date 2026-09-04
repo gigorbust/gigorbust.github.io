@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 980" width="2200" height="980" fill="none">
+<defs>
+<linearGradient id="services-navy" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#12325C"/><stop offset="1" stop-color="#1E4B85"/></linearGradient>
+<linearGradient id="services-teal" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2E9E92"/><stop offset="1" stop-color="#42B8AB"/></linearGradient>
+<linearGradient id="services-gold" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F0B429"/><stop offset="1" stop-color="#F7C64E"/></linearGradient>
+<linearGradient id="services-orange" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F26920"/><stop offset="1" stop-color="#F98338"/></linearGradient>
+<linearGradient id="services-red" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#D0281E"/><stop offset="1" stop-color="#E4402F"/></linearGradient>
+</defs>
+<path d="M -320.0,1300 L 2560,-615.2" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1300 L 2644,-659.8879999999999" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1300 L 2728,-704.5760000000002" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1300 L 2812,-749.2640000000001" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1300 L 2896,-793.9520000000002" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -320.0,1300 L 2560,-615.2" stroke="url(#services-navy)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1300 L 2644,-659.8879999999999" stroke="url(#services-teal)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1300 L 2728,-704.5760000000002" stroke="url(#services-gold)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1300 L 2812,-749.2640000000001" stroke="url(#services-orange)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1300 L 2896,-793.9520000000002" stroke="url(#services-red)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

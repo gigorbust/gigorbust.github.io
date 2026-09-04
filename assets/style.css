@@ -1,0 +1,1344 @@
+/* ============================================================
+   KG AUTO REPAIR — "The Amber Bay" design system
+   Charcoal shop floor · amber duotone · machined chamfers
+   ============================================================ */
+:root{
+  --bg:#141518;
+  --bg-2:#191a1e;
+  --paper:#f2efe8;
+  --paper-2:#e9e4d8;
+  --ink:#17181b;
+  --ink-2:#55524a;
+  --fg:#f2efe8;
+  --muted:#a3a6ad;
+  --faint:#8a8d94;
+  --line:rgba(242,239,232,.14);
+  --line-strong:rgba(242,239,232,.3);
+  --line-dark:rgba(23,24,27,.16);
+  --accent:#e39a34;
+  --star:#f7c948;   /* review stars read yellow, distinct from the amber accent */
+  --accent-deep:#a06a15;
+  --display:'Outfit','Helvetica Neue',Arial,sans-serif;
+  --body:'Fraunces',Georgia,serif;
+  --chamfer:polygon(0 0,100% 0,100% calc(100% - 24px),calc(100% - 24px) 100%,0 100%);
+  /* motion tokens — machined: hard decel, zero overshoot */
+  --e-machine:cubic-bezier(.16,1,.3,1);
+  --e-press:cubic-bezier(.4,0,.2,1);
+  --e-cam:cubic-bezier(.65,0,.35,1);
+  --t-tap:120ms;--t-ui:220ms;--t-reveal:560ms;--t-hero:820ms;--stag:70ms;
+  /* scrims + slabs, tokenized so a theme flip carries them */
+  --scrim-solid:rgba(20,21,24,.985);
+  --scrim-92:rgba(25,26,30,.92);
+  --scrim-62:rgba(20,21,24,.62);
+  --scrim-55:rgba(20,21,24,.55);
+  --scrim-50:rgba(20,21,24,.5);
+  --scrim-35:rgba(20,21,24,.35);
+  --slab-1:#16171b;--slab-2:#141518;--slab-3:#101114;
+  --badge-d1:#2b3138;--badge-d2:#1e232a;--badge-d3:#12151a;--badge-cast:rgba(0,0,0,.72);
+  --accent-ink:var(--accent);        /* amber used as TEXT — darkened on light ground */
+  --on-accent:#17181b;               /* text ON an amber fill — always dark, never flips */
+  /* heritage stripe: warm ramp into navy, paper showing between every band */
+  --sg-y:#F0B429; --sg-o:#F26920; --sg-r:#D0281E;
+  --sg-deep:#8E1A18; --sg-char:#1F1F1F; --sg-blue:#1E5BC6;
+  --sg-gap:var(--bg);
+  --grain:.05;
+  --hero-filter:grayscale(.85) brightness(.42) contrast(1.1);
+}
+
+/* ============================================================
+   LIGHT THEME — paper shop floor.
+   --paper/--ink intentionally invert: they mean "the contrasting
+   block", so .on-paper sections and featured cards become dark
+   slabs on a light page with no component changes.
+   ============================================================ */
+:root[data-theme="light"]{
+  --bg:#f2efe8;
+  --bg-2:#fbfaf6;
+  --paper:#17181b;
+  --paper-2:#22242a;
+  --ink:#f4f1ea;
+  --ink-2:#b9bcc2;
+  --fg:#191a1d;
+  --muted:#52504a;
+  --faint:#5f5c54;
+  --line:rgba(23,24,27,.15);
+  --line-strong:rgba(23,24,27,.32);
+  --line-dark:rgba(242,239,232,.18);
+  --accent:#e39a34;                  /* fills stay bright */
+  --accent-ink:#94590c;              /* amber as text, contrast-safe on paper */
+  --accent-deep:#7d4c08;
+  --star:#a87a0d;
+  --ghost-stroke:rgba(23,24,27,.16);
+  --scrim-solid:rgba(248,246,241,.985);
+  --scrim-92:rgba(242,239,232,.92);
+  --scrim-62:rgba(242,239,232,.62);
+  --scrim-55:rgba(242,239,232,.55);
+  --scrim-50:rgba(242,239,232,.5);
+  --scrim-35:rgba(242,239,232,.35);
+  --slab-1:#efece4;--slab-2:#e9e5db;--slab-3:#e2ddd1;
+  --badge-d1:#b9bec5;--badge-d2:#8e959e;--badge-d3:#666d76;--badge-cast:rgba(23,24,27,.34);
+  --grain:.035;
+  /* clean neutral on paper: no tint, lifted, slightly cool */
+  --hero-filter:grayscale(1) contrast(1.06) brightness(1.04);
+  --duo-filter:saturate(.55) contrast(1.06) brightness(1.02);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:clip}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--body);font-size:clamp(1.0625rem,1rem + .25vw,1.1875rem);line-height:1.6;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;position:relative}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:var(--grain);mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img{display:block;max-width:100%}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[id]{scroll-margin-top:88px}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--on-accent);padding:10px 16px;font-weight:600;z-index:300}
+.skip:focus{left:16px;top:16px}
+
+.label{font-family:var(--display);font-weight:600;font-size:.8125rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-ink)}
+h1,h2{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.9;
+  overflow-wrap:break-word;hyphens:none}
+/* GLOBAL RULE: headings scale against the width of the column they sit in (cqi),
+   not the viewport (vw). Prevents 4-line wonk on wide screens where the text
+   column is narrow but vw is huge. */
+.hero .wrap,.page-hero .wrap,.svc-detail,.commit-item,.row{container-type:inline-size}
+/* never break inside a phrase the eye reads as one unit */
+h1 .ln,h2 .ln{display:inline-block;white-space:nowrap;max-width:100%}
+h2{font-size:clamp(2.1rem,min(6.5vw,11cqi),4.75rem)}
+h3{font-family:var(--display);font-weight:700;text-transform:uppercase;line-height:.95;letter-spacing:.015em}
+
+.btn{display:inline-block;font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;padding:16px 34px;border:1px solid var(--line-strong);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+.btn:hover{border-color:var(--accent-ink);color:var(--accent-ink);translate:0 -1px}
+.btn.solid{background:var(--accent);border-color:var(--accent-ink);color:var(--on-accent)}
+.btn.solid:hover{background:var(--fg);border-color:var(--fg);color:var(--ink)}
+
+/* duotone photo system */
+.duo{position:relative;overflow:hidden;clip-path:var(--chamfer)}
+.duo img{width:100%;height:100%;object-fit:cover;filter:var(--duo-filter,grayscale(1) contrast(1.12) brightness(.92))}
+.duo::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(227,154,52,.5),var(--scrim-55) 72%);mix-blend-mode:multiply}
+.duo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,var(--scrim-50),transparent 40%)}
+
+/* tread divider */
+/* ============================================================
+   LIVERY SYSTEM — the same four-band ramp at every scale, so the
+   hero swoop, the dividers, the card edges and the footer all read
+   as one mark rather than four unrelated decorations.
+   ============================================================ */
+:root{--brand-fb:#0866FF;--brand-ig:#C32AA3;--brand-nd:#19975D;
+  --brand-yelp:#D32323;--brand-venmo:#008CFF;--brand-google:#4285F4}
+:root{--livery:linear-gradient(90deg,
+   var(--sg-y) 0 24%, var(--bg) 24% 26%,
+   var(--sg-o) 26% 50%, var(--bg) 50% 52%,
+   var(--sg-r) 52% 76%, var(--bg) 76% 78%,
+   var(--sg-blue) 78% 100%)}
+
+/* divider — replaces the old tire-tread band. Wipes in on scroll. */
+.tread{height:7px;background:var(--livery);opacity:.92;transform-origin:left center}
+@media(prefers-reduced-motion:no-preference){
+  .tread{animation:wipe-x linear both;animation-timeline:view();animation-range:entry 0% entry 85%}
+  @keyframes wipe-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}}
+
+/* card + panel top edge */
+.post-card,.portal,.svc-photo,.commit-photo{position:relative}
+.post-card::after,.portal::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:var(--livery);opacity:0;transition:opacity .3s var(--e-machine)}
+.post-card:hover::after,.portal:hover::after{opacity:1}
+
+/* section-heading marker: a small skewed ramp before the label */
+.label{position:relative}
+.sec-head .label::before,.commit .label::before,.hero .label::before{content:"";display:inline-block;
+  width:26px;height:.72em;margin-right:11px;vertical-align:-1px;transform:skewX(-16deg);
+  background:var(--livery);background-size:100% 100%}
+
+/* footer band */
+footer{position:relative}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--livery)}
+
+/* stat blocks pick up a colored leading rule instead of a gray one */
+.fact{--f:var(--sg-y)}
+.fact:nth-child(2){--f:var(--sg-o)}
+.fact:nth-child(3){--f:var(--sg-r)}
+.fact:nth-child(4){--f:var(--sg-blue)}
+
+/* ghost index + rail */
+.sec{position:relative;overflow:hidden}
+.sec-index{display:none}
+
+/* Inside an inverted block the ground is dark again, so the darkened amber
+   would disappear. Put the bright accent back for those subtrees. */
+.commit,.makes,.qcard.big,.slab{--accent-ink:var(--accent);--faint:var(--ink-2);--star:#f7c948}
+
+.rail{position:absolute;left:24px;top:0;bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--display);font-weight:600;font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);border-left:1px solid var(--line);padding:24px 0 24px 14px;display:none}
+@media(min-width:1360px){.rail{display:block}}
+
+/* ---- top strip ---- */
+.strip{border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted);font-family:Outfit,var(--display);font-weight:500;letter-spacing:.02em}
+.strip .wrap{max-width:none;padding-left:clamp(24px,3.5vw,64px);padding-right:clamp(24px,3.5vw,64px);display:flex;justify-content:space-between;gap:16px;padding-top:13px;padding-bottom:13px}
+.strip a{color:var(--fg)}
+.strip a:hover{color:var(--accent-ink)}
+@media(max-width:640px){.strip .hide-sm{display:none}}
+
+/* ---- nav ---- */
+.nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 62%,transparent);-webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);border-bottom:1px solid color-mix(in srgb,var(--fg) 10%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 28px -18px rgba(23,24,27,.4)}
+@supports not (backdrop-filter:blur(1px)){.nav{background:var(--scrim-solid)}}
+.nav .wrap{max-width:none;padding-left:clamp(24px,3.5vw,64px);padding-right:clamp(24px,3.5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:40px;min-height:104px;padding-top:20px;padding-bottom:20px}
+.wordmark{font-family:Outfit,var(--display);font-weight:900;font-size:clamp(1.02rem,1.62vw,1.78rem);letter-spacing:-.005em;text-transform:uppercase}
+.wordmark b{color:inherit;font-weight:900}
+.nav-links{display:flex;gap:38px;font-family:Outfit,var(--display);font-weight:600;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
+.nav-links a{color:var(--muted);padding:8px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-links a:hover{color:var(--fg);border-bottom-color:var(--accent-ink)}
+.nav-links a[aria-current="page"]{color:var(--fg);border-bottom-color:var(--accent-ink)}
+.nav-tel{font-family:Outfit,var(--display);font-weight:800;font-size:.98rem;letter-spacing:.01em;border:1.5px solid var(--line-strong);padding:15px 24px;white-space:nowrap;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.nav-tel:hover{border-color:var(--accent-ink);color:var(--accent-ink)}
+@media(max-width:820px){
+  .nav-links{display:none}
+  .nav-tel{background:var(--accent);border-color:var(--accent-ink);color:var(--on-accent)}
+}
+
+/* ---- hero scrub (vanilla port of 21st.dev hero-scrub) ---- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hscrub{position:relative;overflow:clip;background:var(--bg)}
+.hscrub-stage{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;isolation:isolate}
+.hscrub:not(.hscrub-on) .hscrub-stage{position:relative} /* no-JS / reduced-motion: static hero */
+.hscrub-bg{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.6) 100%),
+  radial-gradient(ellipse at 50% 32%, rgba(227,154,52,.14) 0%, transparent 58%),
+  linear-gradient(180deg,var(--slab-1) 0%,var(--slab-2) 60%,var(--slab-3) 100%)}
+.hscrub-inner{position:relative;z-index:1;display:flex;height:100%;width:100%;flex-direction:column;align-items:center;justify-content:center;gap:clamp(6px,1.2vh,14px);padding:78px 0 20px}
+.hscrub-title{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,8.5vw,7.5rem);line-height:.82;letter-spacing:-.04em;color:var(--fg);will-change:transform,opacity;white-space:nowrap;flex:none}
+.hscrub-title-bottom{color:var(--accent-ink)}
+/* Entrance is opacity-only and lives on the PARENT. A transform/opacity animation
+   on the titles themselves outranks the scrub's inline styles (animations beat
+   inline in the cascade) and freezes them mid-stage — that's why they never split. */
+@keyframes hscrub-in{from{opacity:0}to{opacity:1}}
+.hscrub-on .hscrub-inner{animation:hscrub-in 900ms var(--e-machine) both;animation-delay:120ms}
+.hscrub-card{position:relative;overflow:hidden;clip-path:var(--chamfer);will-change:transform;flex:none;
+  width:min(92vw, calc(52svh * (16/9)));height:min(52svh, calc(92vw / (16/9)));
+  box-shadow:0 20px 80px rgba(0,0,0,.55);outline:1px solid rgba(242,239,232,.12)}
+.hscrub-card .hscrub-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.08) brightness(.8)}
+.hscrub-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.hscrub-frames .hscrub-canvas{display:block}
+.hscrub-frames .hscrub-fallback{display:none}
+.hscrub-vignette{position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 120px rgba(0,0,0,.45)}
+.hero-intro{border-bottom:1px solid var(--line);position:relative;z-index:2;background:var(--bg)}
+.hero-intro .wrap{padding-top:clamp(40px,6vw,72px);padding-bottom:clamp(40px,6vw,72px)}
+.hero-intro .hero-sub{padding-top:22px}
+
+/* ---- home hero ---- */
+.hero{position:relative;isolation:isolate;border-bottom:1px solid var(--line);background:var(--bg)}
+.hero-bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:var(--hero-filter)}
+/* No warm wash. The amber radial that worked on charcoal turned the photo
+   khaki once the ground went to paper — sepia by accident, not by choice. */
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,var(--scrim-62) 0%,var(--scrim-35) 45%,var(--bg) 97%)}
+.hero .wrap{padding-top:clamp(72px,8vw,104px);padding-bottom:clamp(96px,11vw,150px);
+  position:relative;z-index:1}
+/* the sweep owns the right third, so the copy column stops short of it */
+@media(min-width:900px){
+  /* Everything in the hero lives inside one column. Nothing — least of all a
+     primary CTA — may extend under the livery. */
+  .hero .wrap>*{max-width:min(100%,46%)}
+  .hero-sub{grid-template-columns:1fr!important;max-width:min(100%,46%)}
+  .hero-sub p{max-width:38ch;color:var(--muted)}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;max-width:100%}
+}
+@media(min-width:1500px){.hero .wrap>*{max-width:min(100%,48%)}}
+.hero h1{font-size:clamp(2.6rem,min(8.2vw,12.4cqi),7rem);letter-spacing:-.03em;line-height:.94}
+.hero h1 em{font-style:normal;color:var(--ink);background:linear-gradient(0deg,var(--accent) 88%,transparent 88%);padding:0 .08em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero-sub{display:grid;grid-template-columns:minmax(0,52ch) auto;gap:36px;align-items:end;justify-content:space-between;padding-top:42px}
+.hero-sub p{color:var(--fg);font-size:1.1rem;text-wrap:pretty}
+.hero-sub p strong{font-weight:700;color:var(--fg)}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:820px){.hero-sub{grid-template-columns:1fr}}
+@media(max-width:640px){.hero-ctas{width:100%}.hero-ctas .btn{display:block;width:100%;text-align:center}}
+
+/* ---- subpage hero ---- */
+.page-hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:var(--bg-2)}
+.page-hero .wrap{padding-top:clamp(64px,8vw,110px);padding-bottom:clamp(48px,6vw,84px)}
+.page-hero h1{font-size:clamp(2.5rem,min(8.5vw,13cqi),6.8rem);margin-top:12px;letter-spacing:-.03em}
+.page-hero .intro{color:var(--muted);max-width:52ch;margin-top:22px;font-size:1.02rem}
+.crumb{font-family:var(--display);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.crumb a:hover{color:var(--accent-ink)}
+.crumb span{color:var(--muted)}
+
+/* facts bar */
+.facts{background:var(--bg);border-top:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+.fact{padding:28px 28px 28px 0;border-left:3px solid var(--f);padding-left:28px;position:relative}
+@media(prefers-reduced-motion:no-preference){
+  .fact{animation:rule-grow .7s var(--e-machine) both;animation-timeline:view();animation-range:entry 10% entry 70%}
+  @keyframes rule-grow{from{border-left-color:transparent;opacity:.4;translate:0 10px}
+                       to{border-left-color:var(--f);opacity:1;translate:0 0}}}
+.fact:first-child{border-left:none;padding-left:0}
+.fact b{font-family:var(--display);font-weight:900;font-size:clamp(2rem,3.5vw,2.9rem);line-height:1;display:block;font-variant-numeric:tabular-nums}
+.fact span{font-family:var(--display);font-size:.78rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint)}
+@media(max-width:640px){.facts .wrap{grid-template-columns:1fr}.fact{border-left:none;padding-left:0;border-top:1px solid var(--line)}.fact:first-child{border-top:none}}
+
+/* ---- makes band + marquee ---- */
+.makes{background:#f8f7f3;color:#17181b}
+.makes .wrap{display:flex;align-items:center;gap:30px;padding-top:22px;padding-bottom:22px}
+.makes-copy{flex:0 0 190px}
+.makes p{font-family:var(--display);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
+.makes small{display:block;margin-top:4px;color:#65615a;font-size:.62rem;line-height:1.35}
+.marquee{--marquee-gap:44px;display:flex;gap:var(--marquee-gap);overflow:clip;flex:1;min-width:0;-webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.marquee-track{display:flex;align-items:center;gap:44px;flex:none;min-width:max-content;justify-content:flex-start;white-space:nowrap}
+.marquee-track li{display:grid;place-items:center;width:112px;height:52px;flex:none}
+.make-logo{display:block;width:auto;height:auto;max-width:96px;max-height:36px;object-fit:contain;filter:grayscale(1) contrast(1.08);opacity:.68;transition:filter .3s var(--e-machine),opacity .3s var(--e-machine),transform .3s var(--e-machine)}
+.marquee-track li:hover .make-logo{filter:none;opacity:1;transform:scale(1.06)}
+@media(max-width:640px){.makes .wrap{flex-direction:column;align-items:flex-start;gap:12px}.makes-copy{flex-basis:auto}.marquee{width:100%}.marquee-track li{width:96px}.make-logo{max-width:82px;max-height:34px}}
+
+/* ---- sections ---- */
+.section{padding:clamp(96px,13vw,168px) 0}
+.section.tight{padding:clamp(72px,9vw,120px) 0}
+.sec-head{margin-bottom:52px;position:relative;z-index:1}
+.sec-head .intro{color:var(--muted);max-width:46ch;margin-top:18px;font-size:1rem}
+
+/* ---- services ledger ---- */
+.svc-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:clamp(36px,5vw,72px);align-items:start;position:relative;z-index:1}
+.svc-photo{position:sticky;top:96px}
+.svc-photo .duo{aspect-ratio:4/5}
+.svc-photo figcaption{font-family:var(--display);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-top:12px}
+.ledger{border-top:1px solid var(--line-strong)}
+.row{display:grid;grid-template-columns:64px 56px 1fr;gap:20px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.row:hover .num{color:var(--accent-ink)}
+a.row:hover h3{color:var(--accent-ink)}
+.num{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:.1em;color:var(--faint);font-variant-numeric:tabular-nums}
+.chip{width:56px;height:56px;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+.chip-blank{width:56px;height:56px;border:1px solid var(--line);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);display:grid;place-items:center;font-family:var(--display);font-weight:700;color:var(--faint);font-size:1.1rem}
+.row h3{font-size:clamp(1.35rem,2.3vw,1.85rem)}
+.row p{color:var(--muted);font-size:.92rem;line-height:1.45;margin-top:2px}
+.ledger-foot{padding:20px 0;color:var(--faint);font-size:.95rem}
+.ledger-foot b{font-family:var(--display);text-transform:uppercase;letter-spacing:.12em;color:var(--fg);font-weight:700}
+@media(max-width:980px){.svc-grid{grid-template-columns:1fr}.svc-photo{position:static;order:-1;max-width:520px}}
+@media(max-width:560px){.row{grid-template-columns:44px 1fr}.chip,.chip-blank{display:none}}
+
+/* ---- service detail sections (services page) ---- */
+.svc-detail{border-top:1px solid var(--line);padding:clamp(48px,6vw,72px) 0;display:grid;grid-template-columns:110px minmax(0,1fr) 320px;gap:clamp(24px,4vw,56px);align-items:start;position:relative;z-index:1}
+.svc-detail .num{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:transparent;-webkit-text-stroke:1px var(--accent);line-height:1}
+.svc-detail h2{font-size:clamp(2rem,4.5vw,3.2rem)}
+.svc-detail .body{color:var(--muted);margin-top:16px;max-width:58ch}
+.svc-detail .body strong{color:var(--fg);font-weight:600}
+.svc-detail .cta{margin-top:22px}
+.svc-detail aside{border-left:1px solid var(--line);padding-left:24px;font-size:.92rem;color:var(--faint)}
+.svc-detail aside b{font-family:var(--display);text-transform:uppercase;letter-spacing:.11em;font-size:.75rem;color:var(--muted);display:block;margin-bottom:8px}
+.svc-detail aside a{color:var(--fg);border-bottom:1px solid var(--accent)}
+.svc-detail aside a:hover{color:var(--accent-ink)}
+@media(max-width:900px){.svc-detail{grid-template-columns:64px 1fr}.svc-detail aside{grid-column:2;border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:16px}}
+
+/* ---- commitment (paper) ---- */
+.commit{background:var(--paper);color:var(--ink);overflow:visible}
+.commit .sec-index{right:0}
+.commit .label{color:var(--sg-y)}
+.commit h2{color:var(--ink)}
+.commit-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:clamp(36px,5vw,80px);align-items:start}
+.commit-photo{margin-top:calc(clamp(96px,13vw,168px) * -1 - 60px)}
+.commit-photo .duo{aspect-ratio:3/4}
+.commit-photo figcaption{font-family:var(--display);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);margin-top:12px}
+.commit-intro{color:var(--ink-2);max-width:50ch;margin-top:18px;font-size:1rem}
+.commit-list{margin-top:48px;border-top:2px solid var(--ink);counter-reset:c}
+.commit-item{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--line-dark)}
+.commit-item::before{counter-increment:c;content:"0" counter(c);font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:.1em;color:var(--sg-y);font-variant-numeric:tabular-nums;padding-top:6px}
+.commit-item h3{font-size:clamp(1.4rem,2.4vw,1.9rem)}
+.commit-item p{color:var(--ink-2);font-size:.95rem;margin-top:6px}
+.commit-note{margin-top:34px;color:var(--ink-2);font-size:.95rem;max-width:60ch}
+.commit-note a{font-weight:600;color:var(--ink);border-bottom:2px solid var(--accent)}
+@media(max-width:980px){.commit-grid{grid-template-columns:minmax(0,1fr)}.commit-photo{margin-top:0;max-width:420px}}
+
+/* ---- reviews ---- */
+.reviews{border-bottom:1px solid var(--line)}
+.reviews .wrap{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;position:relative;z-index:1}
+.reviews p{color:var(--muted);max-width:48ch;margin-top:16px}
+.review-btns{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:720px){.reviews .wrap{grid-template-columns:1fr}}
+.portal{border:1px solid var(--line);padding:clamp(28px,4vw,44px);display:block}
+.portal:hover{border-color:var(--accent-ink)}
+.portal h3{font-size:clamp(1.6rem,3vw,2.2rem)}
+.portal p{color:var(--muted);font-size:.95rem;margin-top:10px;max-width:44ch}
+.portal .go{font-family:var(--display);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink);display:inline-block;margin-top:18px;font-size:.95rem}
+.portal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;position:relative;z-index:1}
+@media(max-width:720px){.portal-grid{grid-template-columns:1fr}}
+
+/* ---- about ---- */
+.about{background:var(--bg-2);border-top:1px solid var(--line)}
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,90px);position:relative;z-index:1}
+.about-copy p{color:var(--muted);margin-top:18px;max-width:54ch}
+.about-copy p strong{color:var(--fg);font-weight:600}
+.pull{font-family:var(--body);font-weight:600;font-size:clamp(1.4rem,2.4vw,1.85rem);line-height:1.25;color:var(--fg);border-left:3px solid var(--accent);padding-left:22px;margin-top:34px;font-style:italic}
+.plate{display:inline-block;border:1px solid var(--line-strong);outline:1px solid var(--line);outline-offset:4px;padding:12px 22px;font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+.kv{padding:18px 0;border-bottom:1px solid var(--line)}
+.kv dt{font-family:var(--display);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.kv dd{font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:.03em;text-transform:uppercase}
+.kv dd a:hover{color:var(--accent-ink)}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+/* ---- visit ---- */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:start;position:relative;z-index:1}
+.hours{border-top:1px solid var(--line-strong);margin-top:26px}
+.hours-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.hours-row span:first-child{font-family:var(--display);font-size:.8rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.hours-row span:last-child{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:.04em}
+.hours-row .closed{color:var(--accent-ink)}
+.addr-line{margin-top:26px;color:var(--muted)}
+.addr-line a{color:var(--fg);border-bottom:1px solid var(--accent)}
+.addr-line a:hover{color:var(--accent-ink)}
+.map-frame{clip-path:none;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:64px 0 0;width:100%;position:relative;z-index:1;left:0}
+.map-frame iframe{display:block;width:100%;height:clamp(380px,52vh,620px);border:0;filter:saturate(1.15) contrast(1.03)}
+
+/* amber slab */
+.slab{background:var(--accent);color:var(--on-accent);clip-path:var(--chamfer);padding:clamp(32px,4.5vw,52px)}
+.slab .label{color:var(--on-accent);opacity:.75}
+.slab-tel{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4.6vw,3.3rem);line-height:.95;letter-spacing:.01em;display:inline-block;margin-top:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.slab-tel:hover{color:#fff}
+.slab p{font-size:.98rem;margin-top:16px;max-width:38ch;color:rgba(23,24,27,.85)}
+.slab .btn{margin-top:26px;border-color:var(--on-accent);color:var(--on-accent)}
+.slab .btn:hover{border-color:var(--sg-char)}
+@media(max-width:860px){.visit-grid{grid-template-columns:1fr}}
+
+/* ---- wall of love ---- */
+/* --- chrome badge: lift, tilt and a specular sweep on hover --- */
+.mark-wrap{position:relative;display:block;flex:none;perspective:520px;line-height:0}
+/* Thickness: three stacked 1px solid shadows build an extruded body that follows
+   the badge silhouette (letter cutouts included), then a soft cast shadow sits it
+   on the surface. The cast shadow slides with the pointer so the badge reads as an
+   object above the page rather than a sticker printed on it. */
+.mark-wrap{--d:1px;--cast:5px;--castb:9px}
+.foot-mark-wrap{--d:2px;--cast:8px;--castb:15px}
+.mark,.foot-mark{
+  transform:rotateX(var(--lx,0deg)) rotateY(var(--ly,0deg)) scale(var(--ls,1));
+  transform-origin:center;
+  transition:transform .38s cubic-bezier(.2,.8,.3,1);
+  filter:
+    drop-shadow(0 var(--d) 0 var(--badge-d1))
+    drop-shadow(0 var(--d) 0 var(--badge-d2))
+    drop-shadow(0 var(--d) 0 var(--badge-d3))
+    drop-shadow(var(--shx,0px) var(--cast) var(--castb) var(--badge-cast));}
+.mark{height:54px;width:auto;display:block;object-fit:contain}
+/* On paper the badge's transparent letters disappear — light chrome on a light
+   ground. The light theme uses the field-intact cut so the letters keep a dark
+   backing. Same emblem, correct figure/ground for each theme. */
+:root[data-theme="light"] .mark{content:url(/assets/logo-dark.png)}
+:root[data-theme="light"] .foot-mark{content:url(/assets/logo-dark.png)}
+:root[data-theme="light"] .mark-wrap::after{-webkit-mask-image:url(/assets/logo-dark.png);mask-image:url(/assets/logo-dark.png)}
+.wordmark:hover .mark,.wordmark:focus-visible .mark{--ls:1.07}
+.foot-mark-wrap:hover .foot-mark{--ls:1.05}
+/* the sweep is masked by the badge art, so it only ever lands on the metal */
+.mark-wrap::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  transform:rotateX(var(--lx,0deg)) rotateY(var(--ly,0deg)) scale(var(--ls,1));
+  transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.3,1);
+  background:linear-gradient(100deg,transparent 38%,rgba(255,255,255,.92) 50%,transparent 62%);
+  background-size:280% 280%;background-position:var(--sx,50%) var(--sy,50%);
+  -webkit-mask:url(/assets/logo.png) center/contain no-repeat;
+  mask:url(/assets/logo.png) center/contain no-repeat;mix-blend-mode:screen}
+.mark-wrap:hover::after{opacity:.75}
+@media(prefers-reduced-motion:reduce){.mark,.mark-wrap::after{transition:none;transform:none}
+  .mark-wrap::after{display:none}}
+.wordmark{white-space:nowrap}
+.wordmark-txt{display:inline-flex;align-items:center;white-space:nowrap;margin-left:6px;line-height:1}
+@media(max-width:720px){
+  /* the sticky call bar already carries the number — don't fight it for width */
+  .nav-tel{display:none}
+  .mark{height:48px}
+  .wordmark{gap:12px}
+}
+@media(max-width:400px){.mark{height:42px}.wordmark{gap:9px}}
+.wordmark{display:flex;align-items:center;gap:15px}
+.wordmark>.kg-stripe{margin-right:0}
+/* KG stripe — the same four-band livery mark used before every section label
+   (--livery), so nav and section heads read as one system. Skew and band
+   proportions are inherited from the token; do not hand-tune them here. */
+.kg-stripe{display:block;width:56px;height:1.35em;flex:none;transform:skewX(-16deg);
+  margin-left:38px;background:var(--livery);background-size:100% 100%}
+.kg-stripe i{display:none}
+@media(max-width:720px){.kg-stripe{width:44px;margin-left:26px}}
+@media(max-width:400px){.kg-stripe{display:none}}
+
+/* Hero livery — a single six-band swoop, generated as SVG so it stays crisp and
+   carries its own grain. Not a repeating field: one statement, bottom-left to
+   top-right, with the paper ground reading between the bands. */
+.sweep{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.sweep::before{content:"";position:absolute;left:0;right:0;bottom:0;top:0;width:100%;background:url(/assets/livery.svg) center bottom/100% auto no-repeat}
+@media(max-width:820px){.sweep::before{background-size:190% auto;background-position:72% bottom;opacity:.95}}
+/* technical annotation marks, top-left and bottom-right, as in the plates */
+.sweep::after{content:"";position:absolute;inset:0;color:var(--fg);opacity:.55;
+  -webkit-mask:url(/assets/marks.svg) left top/72% auto no-repeat;
+  mask:url(/assets/marks.svg) left top/72% auto no-repeat;background:currentColor}
+@media(max-width:900px){.sweep::after{display:none}}
+@media(prefers-reduced-motion:no-preference){
+  .sweep::before{animation:sweep-in 1000ms var(--e-machine) both}
+  @keyframes sweep-in{from{transform:translate(6%,4%);opacity:0}
+                      to{transform:translate(0,0);opacity:1}}}
+.statline{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.statline .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+.featured{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative;z-index:1}
+.qcard{position:relative;break-inside:avoid;border:1px solid var(--line);background:var(--bg-2);
+  padding:28px 26px;margin:0 0 18px;border-radius:22px;corner-shape:squircle;overflow:hidden;
+  transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.3,1),border-color .3s,box-shadow .5s}
+.qcard.is-tilting{transition:transform .08s linear,border-color .3s,box-shadow .3s;
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.75);border-color:var(--src,var(--line-strong))}
+/* faint light-follow so the tilt reads as a surface, not a wobble */
+.qcard.is-tilting::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.055),transparent 70%)}
+@media(prefers-reduced-motion:reduce){.qcard{transition:none;transform:none}}
+/* a 2px source stripe makes the platform legible before you read a word */
+.qcard::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--src,var(--line-strong));opacity:.6}
+.src-google{--src:var(--brand-google)}.src-yelp{--src:var(--brand-yelp)}
+.src-facebook{--src:var(--brand-fb)}
+.src-nextdoor{--src:var(--brand-nd)}.src-other{--src:var(--accent)}
+.qcard.big{background:var(--paper);color:var(--ink);border-color:transparent}
+.qcard.big .qmark{color:var(--ink-2)}
+.qcard.big .qsrc-link{color:var(--ink-2)}
+.qcard.big blockquote{font-size:clamp(1.15rem,1.8vw,1.4rem);font-weight:600;color:var(--ink)}
+.qcard.big .qname{color:var(--ink)}
+.qcard.big .qmeta{color:var(--ink-2)}
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:6px}
+.qmark{font-family:var(--body);font-size:2.4rem;line-height:.6;color:var(--accent-ink);display:block}
+.qstars{color:var(--star);font-size:.9rem;letter-spacing:2px;white-space:nowrap;flex:none}
+.qcard blockquote{font-size:.97rem;line-height:1.55;color:var(--fg)}
+
+.qname{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:16px;font-size:1.05rem}
+.qmeta{font-family:var(--display);font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--faint);margin-top:2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+/* platform marks: official unmodified glyphs, clear space via gap, link-only use */
+.qsrc{width:14px;height:14px;flex:none;display:block}
+.statline .fact span .qsrc{width:15px;height:15px;display:inline-block;vertical-align:-3px;margin-right:7px}
+.qsrc-link{display:inline-flex;align-items:center;gap:7px;color:var(--faint);
+  border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.qsrc-link:hover,.qsrc-link:focus-visible{color:var(--src,var(--accent));border-bottom-color:var(--src,var(--accent))}
+.qsrc-name{font-family:var(--display);letter-spacing:.11em;text-transform:uppercase}
+.qloc{color:var(--faint)}
+.qloc::before{content:"· "}
+.qphoto{clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);margin-top:16px}
+/* Wall of Love — length-driven mosaic. Column span comes from the review's own
+   size class; the row span is measured at runtime, so tiles pack tight like
+   masonry while still being allowed to span two columns. */
+.wall{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1px;
+      column-gap:18px;row-gap:0;grid-auto-flow:row dense;align-items:start;
+      position:relative;z-index:1;margin-top:52px}
+.wall .qcard{margin:0;padding:0}
+.qbody{padding:28px 26px}
+.q-xs,.q-lg{grid-column:span 2}
+
+/* Short reviews are ratings with a word attached — small tile, quiet type. */
+.q-brief blockquote{font-size:1rem;line-height:1.45}
+/* The quotable middle earns the billboard: two columns, display scale. */
+.q-quote{grid-column:span 2;background:var(--bg)}
+.q-quote blockquote{font-size:clamp(1.25rem,1.9vw,1.72rem);line-height:1.24;font-weight:600;letter-spacing:-.01em;color:var(--fg)}
+.q-quote .qmark{font-size:3rem}
+.q-std blockquote{font-size:.97rem}
+.q-story blockquote{font-size:.95rem;line-height:1.6}
+/* One epic-length review reads as newspaper columns rather than a narrow ribbon. */
+.q-epic{grid-column:span 2}
+.q-epic blockquote{font-size:.94rem;line-height:1.6;columns:2 20ch;column-gap:26px}
+
+@media(max-width:1100px){.wall{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:820px){.wall{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .q-epic blockquote{columns:auto}}
+@media(max-width:560px){.wall{grid-template-columns:1fr;grid-auto-rows:auto;row-gap:18px}
+  .wall .qcard{grid-column:span 1 !important;grid-row:auto !important}
+  .q-quote blockquote{font-size:1.2rem}}
+.hero-office{position:absolute;inset:0;z-index:0;overflow:hidden;opacity:.55}
+.hero-office img{width:100%;height:100%;object-fit:cover;filter:var(--hero-filter)}
+.hero-office::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--scrim-55),var(--scrim-92) 90%)}
+.page-hero .wrap{position:relative;z-index:1}
+@media(max-width:980px){.featured{grid-template-columns:1fr}}
+
+/* ---- blog ---- */
+.post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;position:relative;z-index:1}
+.post-card{border:1px solid var(--line);background:var(--bg-2);padding:32px 30px;clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%);display:flex;flex-direction:column;gap:12px}
+.post-card:hover{border-color:var(--accent-ink)}
+.post-card .pdate{font-family:var(--display);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.post-card h3{font-size:clamp(1.5rem,2.6vw,2.1rem)}
+.post-card p{color:var(--muted);font-size:.95rem}
+.post-card .go{font-family:var(--display);font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent-ink);font-size:.92rem;margin-top:auto}
+@media(max-width:720px){.post-grid{grid-template-columns:1fr}}
+.article{max-width:70ch;margin:0 auto;position:relative;z-index:1}
+.article h2{font-size:clamp(1.7rem,3vw,2.4rem);margin:44px 0 14px}
+.article p{color:var(--muted);margin:16px 0}
+.article p strong{color:var(--fg);font-weight:600}
+.article ul{margin:16px 0 16px 0;color:var(--muted)}
+.article li{padding:8px 0 8px 26px;position:relative}
+.article li::before{content:"";position:absolute;left:0;top:1.05em;width:14px;height:2px;background:var(--accent)}
+.article .pull{margin:34px 0}
+.article-meta{font-family:var(--display);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);display:flex;gap:14px;flex-wrap:wrap}
+.wall-roster{margin-top:26px;padding:22px 26px;border:1px dashed var(--line-strong);color:var(--muted);font-size:.92rem}
+.wall-roster b{font-family:var(--display);text-transform:uppercase;letter-spacing:.09em;color:var(--fg)}
+
+/* ---- footer ---- */
+.foot-brand{display:flex;flex-direction:column;gap:16px}
+.foot-mark-wrap{align-self:flex-start}
+.foot-mark{height:76px;width:auto;object-fit:contain;display:block}
+footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:.88rem;color:var(--faint)}
+.foot{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap}
+.foot-col h2{font-family:var(--display);font-weight:600;font-size:.82rem;line-height:1.62;letter-spacing:.15em;text-transform:uppercase;color:var(--fg);margin-bottom:14px}
+.foot-col a{display:block;padding:3px 0;color:var(--faint)}
+.foot-col a:hover{color:var(--accent-ink)}
+.foot-base{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+/* social: icon row, not a text list. Monochrome so the footer stays quiet;
+   brand color is reserved for the review wall. 40px targets, chamfered to match. */
+.foot-base-left{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.social-row{display:flex;gap:10px;margin:0;padding:0;list-style:none}
+.social-row a{display:grid;place-items:center;width:40px;height:40px;padding:0;color:var(--muted);
+  border:1px solid var(--line);clip-path:polygon(0 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%);
+  transition:color var(--t-tap,.12s) ease,border-color var(--t-tap,.12s) ease,background var(--t-tap,.12s) ease}
+.social-row a svg{width:17px;height:17px;display:block}
+.social-row a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- mobile call bar ---- */
+.callbar{display:none}
+@media(max-width:720px){
+  /* Sticky action bar. Two real targets side by side, hours as quiet context —
+     no more wrapped amber slab. Frosted so content reads through it. */
+  .callbar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:150;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    background:var(--scrim-solid);-webkit-backdrop-filter:blur(14px) saturate(140%);
+    backdrop-filter:blur(14px) saturate(140%);border-top:1px solid var(--line-strong);
+    display:grid;grid-template-columns:1fr auto;grid-template-areas:"call alt" "hours hours";
+    gap:8px 10px;align-items:center}
+  .callbar-btn{grid-area:call;display:flex;align-items:center;justify-content:center;gap:10px;
+    min-height:52px;padding:0 18px;border-radius:14px;corner-shape:squircle;
+    background:var(--accent);color:var(--on-accent);font-family:var(--display);font-weight:900;
+    font-size:1.24rem;letter-spacing:.04em;white-space:nowrap}
+  .callbar-btn svg{width:20px;height:20px;flex:none}
+  .callbar-btn:active{transform:translateY(1px)}
+  .callbar-alt{grid-area:alt;display:flex;align-items:center;gap:7px;min-height:52px;padding:0 16px;
+    border-radius:14px;corner-shape:squircle;border:1px solid var(--line-strong);color:var(--fg);
+    font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}
+  .callbar-alt svg{width:16px;height:16px;flex:none;color:var(--accent-ink)}
+  .callbar-hours{grid-area:hours;margin:0;text-align:center;color:var(--faint);
+    font-family:var(--display);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+  .callbar-open{color:var(--fg)}
+  .callbar a:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+  /* keep the bar from covering the last of the page */
+  body{padding-bottom:112px}
+}
+@media(max-width:360px){.callbar-alt span{display:none}.callbar-alt{padding:0 14px}
+  body{padding-bottom:76px}}
+
+/* ============================================================
+   MOTION — everything below is reduced-motion gated
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference){
+
+/* 1 · hero entrance (CSS-only) */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes unmask{from{clip-path:inset(0 0 102% 0)}to{clip-path:inset(0 0 -0.1em 0)}}
+/* Hero entrance. Gated like every other animation in this file — without the
+   no-preference wrap these ran for reduced-motion users, the one rule that
+   wasn't covered. Ungated, the hero is simply already in place. */
+@media(prefers-reduced-motion:no-preference){
+[data-load]{animation:rise var(--t-hero) var(--e-machine) both;animation-delay:calc(120ms + var(--i,0)*var(--stag))}
+h1[data-load]{animation:rise var(--t-hero) var(--e-machine) both,unmask var(--t-hero) var(--e-machine) both;animation-delay:calc(120ms + var(--i,0)*var(--stag))}
+}
+
+/* 2 · scroll reveal (motion.js adds html.js + .in) */
+html.js :is([data-reveal],[data-stagger]):not(.in){opacity:0}
+html.js [data-stagger]:not(.in)>*{opacity:0}
+html.js [data-reveal].in{animation:rise var(--t-reveal) var(--e-machine) backwards}
+html.js [data-stagger].in{opacity:1}
+html.js [data-stagger].in>*{animation:rise var(--t-reveal) var(--e-machine) backwards;animation-delay:calc(var(--n,0)*var(--stag))}
+[data-stagger]>:nth-child(1){--n:0}[data-stagger]>:nth-child(2){--n:1}
+[data-stagger]>:nth-child(3){--n:2}[data-stagger]>:nth-child(4){--n:3}
+[data-stagger]>:nth-child(5){--n:4}[data-stagger]>:nth-child(6){--n:5}
+[data-stagger]>:nth-child(7){--n:6}[data-stagger]>:nth-child(8){--n:7}
+[data-stagger]>:nth-child(9){--n:8}
+
+/* 3 · scroll-driven (progressive enhancement) */
+@supports (animation-timeline: view()){
+  @keyframes num-drift{from{transform:translateY(.16em)}to{transform:translateY(-.22em)}}
+  @keyframes duo-in{from{transform:scale(1.09)}to{transform:scale(1)}}
+  .svc-photo .duo img,.commit-photo .duo img{animation:duo-in linear both;animation-timeline:view();animation-range:entry 0% contain 60%}
+}
+
+/* 4 · makes marquee */
+.marquee-track{animation:marquee 110s linear infinite}
+  .makes:hover .marquee-track{animation-play-state:paused}
+.marquee:hover .marquee-track,.marquee:focus-within .marquee-track{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(calc(-100% - var(--marquee-gap)))}}
+
+/* 5 · view transitions */
+@keyframes vt-in{from{opacity:0;transform:translateY(12px)}}
+@keyframes vt-out{to{opacity:0;transform:translateY(-10px)}}
+::view-transition-old(root){animation:vt-out 200ms var(--e-press) both}
+::view-transition-new(root){animation:vt-in 320ms var(--e-machine) both}
+.nav{view-transition-name:site-nav}
+html.vt-fb body{animation:vt-in 320ms var(--e-machine) both}
+html.vt-out body{animation:vt-out 200ms var(--e-press) both}
+
+/* 6 · micro-interactions — chamfer notch machines open */
+.btn{transition:background var(--t-tap) var(--e-press),color var(--t-tap) var(--e-press),border-color var(--t-tap) var(--e-press),translate var(--t-ui) var(--e-press),clip-path var(--t-ui) var(--e-press)}
+.btn:hover{clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
+.nav-tel{transition:clip-path var(--t-ui) var(--e-press),color var(--t-tap) var(--e-press),border-color var(--t-tap) var(--e-press)}
+.nav-tel:hover{clip-path:polygon(0 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,0 100%)}
+.row{transition:translate var(--t-ui) var(--e-press)}
+.row:hover{translate:10px 0}
+.row .duo img{transition:scale var(--t-reveal) var(--e-machine)}
+.row:hover .duo img{scale:1.07}
+.chip-blank{transition:color var(--t-tap) var(--e-press),border-color var(--t-tap) var(--e-press)}
+.row:hover .chip-blank{color:var(--accent-ink);border-color:var(--accent-ink)}
+.num{transition:color var(--t-tap) var(--e-press)}
+.portal{transition:border-color var(--t-ui) var(--e-press),translate var(--t-ui) var(--e-press)}
+.portal:hover{translate:0 -3px}
+
+}/* end reduced-motion gate */
+
+@view-transition{navigation:auto}
+
+@media (prefers-reduced-motion:reduce){
+  .marquee{overflow-x:auto;-webkit-mask:none;mask:none}
+  .marquee-track{animation:none}
+  .marquee-track[aria-hidden]{display:none}
+}
+
+
+/* ============================================================
+   BUTTON SYSTEM
+   Directional fill adapted from Abraham Calsin's Uiverse button,
+   sour-donkey-65 (MIT). The interaction is shared; emphasis is not.
+   Primary call actions use KG blue to safety yellow. Secondary actions
+   keep the paper ground and sweep to KG blue.
+   ============================================================ */
+.btn-grad,
+.btn-grad--cool {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px 34px;
+  border:0;
+  font-family:var(--display);
+  font-weight:900;
+  font-size:1.02rem;
+  letter-spacing:.06em;
+  line-height:1;
+  text-align:center;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+
+:is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt){
+  --kg-btn-rest:var(--bg);
+  --kg-btn-fill:var(--sg-blue);
+  --kg-btn-text:var(--fg);
+  --kg-btn-hover-text:#f6f2e8;
+  position:relative;
+  isolation:isolate;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:10px;
+  clip-path:none;
+  background-color:var(--kg-btn-rest);
+  background-image:linear-gradient(90deg,var(--kg-btn-fill),var(--kg-btn-fill));
+  background-position:right center;
+  background-repeat:no-repeat;
+  background-size:0 100%;
+  color:var(--kg-btn-text);
+  box-shadow:0 6px 24px rgba(23,24,27,.2);
+  translate:0 0;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transition:background-size .4s ease-in-out,color .3s ease-in-out,
+    border-color .22s var(--e-press),box-shadow .22s var(--e-press),
+    transform .2s var(--e-press);
+}
+
+:is(.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn){
+  --kg-btn-rest:var(--sg-blue);
+  --kg-btn-fill:var(--sg-y);
+  --kg-btn-text:#f6f2e8;
+  --kg-btn-hover-text:var(--on-accent);
+  border-color:var(--sg-blue);
+}
+
+:is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt):is(:hover,:focus-visible){
+  background-position:left center;
+  background-size:100% 100%;
+  color:var(--kg-btn-hover-text);
+  transform:translateY(-1px);
+  box-shadow:0 12px 30px rgba(23,24,27,.25);
+}
+
+.slab .btn{
+  --kg-btn-rest:transparent;
+  --kg-btn-fill:var(--sg-char);
+  --kg-btn-text:var(--on-accent);
+  --kg-btn-hover-text:#f6f2e8;
+}
+
+.slab .btn:is(:hover,:focus-visible){
+  background-position:left center;
+  background-size:100% 100%;
+  color:var(--kg-btn-hover-text);
+}
+
+:is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt):focus-visible{
+  outline:3px solid #f6f2e8;
+  outline-offset:2px;
+  box-shadow:0 0 0 5px var(--sg-blue),0 12px 30px rgba(23,24,27,.25);
+}
+
+:is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt):active{
+  transform:translateY(1px) scale(.98);
+}
+
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  :is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt):hover{
+    animation:kg-button-pulse .3s ease-in-out;
+  }
+  @keyframes kg-button-pulse{50%{scale:.96}}
+}
+
+@media(prefers-reduced-motion:reduce){
+  :is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt){
+    transition:none;
+    animation:none;
+  }
+  :is(.btn,.btn-grad,.btn-grad--cool,.nav-tel,.callbar-btn,.callbar-alt):is(:hover,:focus-visible,:active){
+    transform:none;
+    scale:1;
+  }
+}
+
+
+/* ---- grille texture ----------------------------------------------------
+   A hex lattice, which is the geometry of a real car grille — unlike diamond
+   plate, which is a shop-floor cliche. Masked to currentColor so it inherits
+   the theme, and kept faint enough to read as paper texture rather than
+   pattern. Applied to the inverted blocks where flat color needs relief. */
+.hexed{position:relative;isolation:isolate}
+.hexed::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  color:currentColor;opacity:.055;background:currentColor;
+  -webkit-mask:url(/assets/hex.svg) 0 0/120px 104px repeat;
+  mask:url(/assets/hex.svg) 0 0/120px 104px repeat}
+.commit,.slab{position:relative}
+.commit::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  color:var(--ink);opacity:.05;background:currentColor;
+  -webkit-mask:url(/assets/hex.svg) 0 0/120px 104px repeat;
+  mask:url(/assets/hex.svg) 0 0/120px 104px repeat}
+.commit .wrap{position:relative;z-index:1}
+@media(prefers-reduced-motion:no-preference){
+  .hexed::before{animation:hex-drift 60s linear infinite}
+  @keyframes hex-drift{to{background-position:120px 104px}}}
+
+
+/* ---- additional motion ------------------------------------------------ */
+@media(prefers-reduced-motion:no-preference){
+  /* service rows: the index numeral slides and colors on hover */
+  .row .num{transition:transform .35s var(--e-machine),color .25s}
+  .row:hover .num{transform:translateX(6px)}
+  /* a livery bar grows down the left edge of a hovered service row */
+  .row{position:relative}
+  .row::before{content:"";position:absolute;left:-14px;top:12%;bottom:12%;width:3px;
+    background:var(--livery);background-size:100% 400%;
+    transform:scaleY(0);transform-origin:top;transition:transform .38s var(--e-machine)}
+  .row:hover::before{transform:scaleY(1)}
+  /* headline underline sweeps as it enters view */
+  .hero h1 em{background-size:100% 100%}
+  /* review cards fade+rise in sequence as the wall scrolls past */
+  .wall .qcard{animation:card-in .6s var(--e-machine) both;
+    animation-timeline:view();animation-range:entry 0% entry 45%}
+  @keyframes card-in{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+  /* removed: scroll() timeline on a child of the sticky nav crashed the compositor */
+  /* section numerals already drift; add a color warm-up */
+}
+
+
+/* ---- hero eyebrow: legible on photography ---------------------------- */
+.hero .label{display:inline-flex;align-items:center;gap:0;
+  background:var(--sg-char);color:#F6F2E8;padding:10px 18px 10px 15px;
+  letter-spacing:.26em;font-weight:700;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%)}
+.hero .label::before{width:22px;height:.78em;margin-right:12px}
+
+/* ---- keep the CTAs clear of the livery sweep ------------------------- */
+.hero .wrap{z-index:2}
+@media(min-width:900px){.hero-ctas{position:relative;z-index:3}}
+
+
+/* ---- review proof ------------------------------------------------------
+   68% of consumers now require 4+ stars and 54% visit the site after reading
+   reviews — they arrive primed, so the number belongs where they land. */
+.strip-right{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.strip-rating{display:inline-flex;align-items:center;gap:7px;padding:3px 10px;border-radius:6px;
+  background:rgba(240,180,41,.16);border:1px solid rgba(208,40,30,.22);white-space:nowrap}
+.strip-rating b{color:var(--sg-r);font-weight:800;letter-spacing:0}
+.strip-rating:hover{background:rgba(240,180,41,.28)}
+.hero-proof{position:relative;z-index:3;margin-top:22px;max-width:46ch;font-family:var(--body);font-size:1.02rem;line-height:1.5;color:var(--muted);letter-spacing:0;font-weight:400;display:block}
+.hero-proof b{color:var(--sg-r);letter-spacing:.06em}
+.hero-proof a{border-bottom:2px solid rgba(208,40,30,.25);padding-bottom:2px}
+.hero-proof a:hover{border-bottom-color:var(--sg-r);color:var(--fg)}
+.hero-proof>span{color:var(--faint)}
+@media(max-width:560px){.hero-proof{font-size:.8rem;gap:8px}}
+
+
+/* ---- per-page livery -------------------------------------------------
+   Same five bands, same angle, different composition per page so each
+   reads as its own view of one mark rather than a repeated banner. */
+.sweep::before{background-image:url(/assets/livery-home.svg)}
+
+/* parallax: the mark drifts slower than the page. Transform-only so it stays
+   on the compositor; scroll() timelines crashed the renderer earlier, view()
+   scoped to the hero does not. */
+@media(prefers-reduced-motion:no-preference){
+  .sweep::before{animation:mark-drift linear both;
+    animation-timeline:view();animation-range:entry 0% exit 100%}
+  @keyframes mark-drift{from{transform:translate3d(0,-4%,0) scale(1.04)}
+                        to{transform:translate3d(0,7%,0) scale(1.04)}}
+}
+
+
+/* interior page-heroes get room for the mark beneath the copy */
+.page-hero .wrap{position:relative;z-index:2;padding-bottom:clamp(90px,11vw,160px)}
+@media(min-width:900px){.page-hero .wrap>*{max-width:min(100%,62%)}}
+
+
+/* Full-bleed slash on every page — thick, edge to edge, its own colorway. */
+[data-page="services"] .sweep::before{background-image:url(/assets/livery-services.svg)}
+[data-page="about"]    .sweep::before{background-image:url(/assets/livery-about.svg)}
+[data-page="reviews"]  .sweep::before{background-image:url(/assets/livery-reviews.svg)}
+[data-page="visit"]    .sweep::before{background-image:url(/assets/livery-visit.svg)}
+[data-page="blog"]     .sweep::before{background-image:url(/assets/livery-blog.svg)}
+.page-hero{position:relative;isolation:isolate;overflow:hidden}
+.page-hero .sweep::before{background-size:100% auto;background-position:center bottom;opacity:1}
+.page-hero .wrap{position:relative;z-index:2;padding-bottom:clamp(120px,15vw,220px)}
+@media(min-width:900px){.page-hero .wrap>*{max-width:min(100%,52%)}}
+@media(max-width:820px){.page-hero .sweep::before{background-size:180% auto;background-position:70% bottom}}
+
+
+/* ---- headline: let width decide the breaks ---------------------------- */
+/* balance optimizes for EQUAL line lengths, which prevents one-lining.
+   Keeping each phrase unbreakable lets width decide: two lines when narrow,
+   one when there is room. */
+.hero h1{text-wrap:normal}
+.hero h1 .hl,.hero h1 em{white-space:nowrap;display:inline-block}
+/* The copy column narrows to 54/60/64% on wide screens so the headline never
+   runs under the livery sweep, which owns the right of the frame.
+   CEILING REQUIRED: .hl and em are white-space:nowrap, and the font-size clamp's
+   cqi term measures .hero .wrap (1240px) — NOT the 54% box the h1 actually
+   occupies. Left uncapped the type is sized for a 1240px column inside a 644px
+   one and the headline overflows and is painted over by the sweep (measured:
+   943px of text in a 644px box at 1500px+, and worse at 1800px+ where the old
+   8.6rem made it 409px of overflow). These ceilings are derived from the longest
+   line, "Honest repairs,", at its measured 943px @ 112px. Re-measure if the
+   headline copy changes. */
+@media(min-width:1500px){.hero .wrap>*{max-width:min(100%,54%)}
+  .hero h1{font-size:clamp(2.6rem,min(8.2vw,12.4cqi),4.6rem)}}
+@media(min-width:1800px){.hero .wrap>*{max-width:min(100%,60%)}
+  .hero h1{font-size:clamp(2.9rem,6.4vw,5.2rem)}}
+@media(min-width:2200px){.hero .wrap>*{max-width:min(100%,64%)}
+  .hero h1{font-size:clamp(2.9rem,6.4vw,5.6rem)}}
+
+/* ---- commitment proof panel ------------------------------------------- */
+.commit-proof{margin:0;padding:clamp(30px,3.4vw,48px);position:relative;
+  background:color-mix(in srgb,var(--ink) 6%,transparent);
+  border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
+  border-radius:20px;corner-shape:squircle}
+.commit-proof::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;
+  border-radius:20px 20px 0 0;
+  background:linear-gradient(90deg,var(--sg-y) 0 25%,var(--sg-o) 25% 50%,var(--sg-r) 50% 75%,var(--sg-blue) 75% 100%)}
+.commit-proof blockquote{font-family:var(--display);font-weight:900;
+  font-size:clamp(1.35rem,2.3vw,2.1rem);line-height:1.14;letter-spacing:-.02em;
+  text-transform:uppercase;color:var(--ink)}
+.commit-proof blockquote::before{content:"\201C"}
+.commit-proof blockquote::after{content:"\201D"}
+.commit-proof figcaption{display:flex;gap:12px;align-items:baseline;margin-top:22px;
+  font-family:var(--display);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.cp-name{font-weight:800;color:var(--ink)}
+.cp-src{color:var(--ink-2)}
+
+.hero-proof b{font-family:var(--display);font-weight:900;font-size:1.12rem;
+  letter-spacing:-.01em;color:var(--ink);text-transform:none}
+.hero-proof a{border-bottom:2px solid var(--sg-y);padding-bottom:1px}
+.hero-proof a:hover b{color:var(--sg-r)}
+.hero-proof em{font-style:normal;font-weight:600;color:var(--ink);
+  box-shadow:inset 0 -.45em 0 color-mix(in srgb,var(--sg-y) 46%,transparent)}
+.hero-proof .hp-line{display:inline}
+@media(max-width:560px){.hero-proof{font-size:.94rem;max-width:none}}
+
+
+/* ---- directions: let people use whatever they already navigate with ---- */
+.navapps{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding:0;list-style:none}
+.navapps a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;
+  border:1px solid var(--line-strong);border-radius:11px;corner-shape:squircle;
+  font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.04em;
+  text-transform:uppercase;transition:border-color .2s,background .2s,transform .2s}
+.navapps a:hover{border-color:var(--sg-blue);background:color-mix(in srgb,var(--sg-blue) 8%,transparent);transform:translateY(-1px)}
+.navapps svg{width:17px;height:17px;flex:none}
+@media(max-width:400px){.navapps a{flex:1 1 100%;justify-content:center}}
+
+
+/* ---- individual service pages ----------------------------------------- */
+.page-hero.service-hero h1{font-size:clamp(3rem,7vw,5.7rem);overflow-wrap:normal;word-break:normal}
+@media(min-width:900px){.page-hero.service-hero .wrap>h1{max-width:min(100%,74%)}}
+@media(max-width:560px){.page-hero.service-hero h1{font-size:clamp(2.25rem,11vw,3rem)}}
+.svc-city{color:var(--muted);font-weight:800}
+.svc-cta{margin-top:28px}
+.svc-body{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:clamp(32px,5vw,72px);align-items:start}
+.svc-copy p{color:var(--muted);font-size:1.06rem;line-height:1.62;margin-bottom:18px;max-width:62ch}
+.svc-points{margin:26px 0 0;padding:0;list-style:none;display:grid;gap:12px}
+.svc-points li{position:relative;padding-left:30px;color:var(--fg);font-size:1rem}
+.svc-points li::before{content:"";position:absolute;left:0;top:.62em;width:17px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--sg-y),var(--sg-r))}
+.svc-aside{border:1px solid var(--line-strong);border-radius:18px;corner-shape:squircle;
+  padding:28px 26px;background:color-mix(in srgb,var(--ink) 4%,transparent);position:relative;overflow:hidden}
+.svc-aside::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;
+  background:linear-gradient(90deg,var(--sg-y) 0 25%,var(--sg-o) 25% 50%,var(--sg-r) 50% 75%,var(--sg-blue) 75%)}
+.svc-aside h2{font-size:1.34rem;margin-bottom:12px}
+.svc-aside p{color:var(--muted);font-size:.96rem;line-height:1.5}
+.svc-tel a{font-family:var(--display);font-weight:900;font-size:1.6rem;letter-spacing:-.02em;color:var(--fg)}
+.svc-tel a:hover{color:var(--sg-r)}
+.svc-hours{font-family:var(--display);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:16px}
+.svc-proof{display:grid;grid-template-columns:repeat(var(--proof-columns,1),minmax(0,1fr));gap:18px;align-items:start}
+.svc-proof-2,.svc-proof-3{--proof-columns:2}
+.svc-proof-3{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.svc-proof-column{display:grid;gap:18px;align-content:start;min-width:0}
+.svc-proof .qcard{margin:0;align-self:start}
+.svc-proof .qname{color:var(--fg)}
+.svc-proof .qmeta,.svc-proof .qsrc-link{color:var(--muted)}
+.svc-proof-title{max-width:18ch;margin:0 0 30px;font-size:clamp(2.25rem,5vw,4.4rem);text-wrap:balance}
+.svc-others{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0;padding:0;list-style:none}
+.svc-others a{display:inline-block;padding:10px 18px;border:1px solid var(--line-strong);
+  border-radius:11px;corner-shape:squircle;font-family:var(--display);font-weight:700;
+  font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;transition:border-color .2s,background .2s}
+.svc-others a:hover{border-color:var(--sg-r);background:color-mix(in srgb,var(--sg-r) 7%,transparent)}
+@media(max-width:900px){.svc-body{grid-template-columns:1fr}.svc-proof{--proof-columns:1;grid-template-columns:1fr}}
+
+/* The pre-purchase page has one proof card and a longer service name than the
+   shared template was composed for. Keep its four groups compact enough to
+   read as one service story without changing the other service pages. */
+.service-hero-prepurchase .wrap{padding-top:clamp(48px,6vw,76px);padding-bottom:clamp(72px,8vw,112px)}
+.page-hero.service-hero-prepurchase h1{font-size:clamp(3rem,5.3vw,4.1rem)}
+.section.tight.svc-section-prepurchase{padding:clamp(64px,6vw,84px) 0}
+.svc-section-prepurchase .svc-body{grid-template-columns:minmax(0,1fr) minmax(330px,360px);gap:clamp(32px,4vw,56px)}
+.section.tight.svc-proof-section-prepurchase{padding:clamp(68px,7vw,92px) 0}
+.svc-proof-section-prepurchase .svc-proof-title{max-width:none;margin-bottom:24px;font-size:clamp(2.6rem,4.2vw,4rem)}
+.svc-proof-section-prepurchase .svc-proof{max-width:980px}
+.svc-proof-section-prepurchase .qcard blockquote{max-width:72ch}
+.section.tight.svc-more-section-prepurchase{padding:clamp(64px,6vw,84px) 0}
+.svc-more-section-prepurchase .svc-others a{display:inline-flex;align-items:center;min-height:44px}
+@media(min-width:900px){
+  .service-hero-prepurchase .wrap>*{max-width:min(100%,68%)}
+  .page-hero.service-hero.service-hero-prepurchase .wrap>h1{max-width:100%}
+}
+@media(max-width:900px){
+  .svc-section-prepurchase .svc-body{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .service-hero-prepurchase .wrap{padding-top:48px;padding-bottom:72px}
+  .page-hero.service-hero-prepurchase h1{font-size:clamp(2rem,9.5vw,2.45rem)}
+  .section.tight.svc-section-prepurchase,.section.tight.svc-proof-section-prepurchase,.section.tight.svc-more-section-prepurchase{padding:56px 0}
+  .svc-proof-section-prepurchase .svc-proof-title{font-size:clamp(2.35rem,11vw,3rem)}
+}
+
+
+/* ---- visit contact --------------------------------------------------- */
+.book-lede{color:var(--muted);max-width:56ch;font-size:1.04rem;line-height:1.55}
+.book-foot{margin-top:22px;color:var(--faint);font-size:.92rem}
+
+
+/* ---- payment ----------------------------------------------------------
+   Venmo is a payment method, not a social network. It sits with the practical
+   information, where someone deciding how to settle a bill will look. */
+.pay-row{max-width:1240px;margin:0 auto;padding:26px 24px 0;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.pay-label{font-family:var(--display);font-weight:800;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-ink)}
+.pay-methods{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;color:var(--fg)}
+.pay-venmo{color:#008CFF;border-bottom:2px solid color-mix(in srgb,#008CFF 35%,transparent);padding-bottom:1px}
+.pay-venmo b{font-weight:800}
+.pay-venmo:hover{border-bottom-color:#008CFF}
+@media(max-width:640px){.pay-row{flex-direction:column;gap:6px}}
+
+
+/* ---- buttons: never let artwork read through them ----------------------
+   The outline "See services" button sat over the livery slash and the stripe
+   showed straight through the label. Any button that wants to look light now
+   gets a frosted plate behind it instead of being genuinely transparent. */
+.btn{position:relative;isolation:isolate;
+  --kg-btn-rest:color-mix(in srgb,var(--bg) 82%,transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);
+  backdrop-filter:blur(14px) saturate(170%);
+  border-radius:12px;corner-shape:squircle;clip-path:none;
+  box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 6px 20px -14px rgba(23,24,27,.45)}
+.btn:hover{--kg-btn-rest:color-mix(in srgb,var(--bg) 94%,transparent);
+  border-color:var(--sg-blue);
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 12px 28px -16px rgba(23,24,27,.5)}
+@supports not (backdrop-filter:blur(1px)){.btn{--kg-btn-rest:var(--bg)}}
+
+/* same rule for the other see-through surfaces sitting over the livery */
+.nav-tel{position:relative;isolation:isolate;border-radius:12px;corner-shape:squircle;clip-path:none}
+.nav-tel:hover{border-color:var(--sg-y)}
+.book-card:not(.book-primary){
+  background:color-mix(in srgb,var(--bg) 84%,transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%)}
+.svc-others a{background:color-mix(in srgb,var(--bg) 84%,transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+.navapps a{background:color-mix(in srgb,var(--bg) 84%,transparent);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+
+
+
+/* ---- send to your phone ------------------------------------------------
+   Desktop only, and collapsed by default. A QR is useless on the device that
+   is displaying it, so it is hidden entirely on touch — the same reason it
+   does not belong on the rest of the site. */
+.sendphone{display:none}
+@media(min-width:900px) and (pointer:fine){
+  .sendphone{display:block;max-width:1240px;margin:34px auto 0;padding:0 24px}
+  .sendphone summary{display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    padding:12px 20px;border:1px solid var(--line-strong);border-radius:12px;corner-shape:squircle;
+    background:color-mix(in srgb,var(--bg) 84%,transparent);
+    -webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);
+    font-family:var(--display);font-weight:700;font-size:.84rem;letter-spacing:.06em;
+    text-transform:uppercase;list-style:none;transition:border-color .2s}
+  .sendphone summary::-webkit-details-marker{display:none}
+  .sendphone summary:hover{border-color:var(--sg-blue)}
+  .sendphone summary svg{width:17px;height:17px;color:var(--sg-blue)}
+  .sp-body{display:flex;gap:26px;align-items:center;margin-top:18px;padding:24px;
+    border:1px solid var(--line);border-radius:16px;corner-shape:squircle;max-width:520px}
+  .sp-body img{width:150px;height:150px;flex:none}
+  .sp-body ol{margin:0;padding-left:20px;color:var(--muted);font-size:.94rem;line-height:1.6}
+}
+
+
+/* ---- Visit: the map IS the section ------------------------------------
+   Full-bleed behind the address, with a left-to-right dark fade so the
+   directions sit on solid ground instead of over map labels. */
+.visit-onmap{position:relative;isolation:isolate;overflow:hidden;
+  padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(56px,7vw,96px)}
+.visit-onmap .map-bg{position:absolute;inset:0;z-index:-2}
+.visit-onmap .map-frame{margin:0;border:0;height:100%}
+.visit-onmap .map-frame iframe{width:100%;height:100%;min-height:560px;
+  filter:saturate(1.1) contrast(1.02);pointer-events:none}
+.visit-onmap .map-scrim{position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,
+    rgba(18,19,22,.96) 0%, rgba(18,19,22,.93) 30%,
+    rgba(18,19,22,.72) 52%, rgba(18,19,22,.20) 76%, rgba(18,19,22,0) 100%)}
+/* copy sits in the solid left third and inverts to light-on-dark */
+.visit-onmap .visit-grid{position:relative;z-index:1;grid-template-columns:minmax(0,520px) 1fr}
+.visit-onmap .visit-grid>*:nth-child(2){display:none}
+.visit-onmap h2,.visit-onmap .addr-line,.visit-onmap .kv dt,.visit-onmap .kv dd,
+.visit-onmap .hours-row,.visit-onmap .nav-lead{color:#F4F1EA}
+.visit-onmap .label{color:var(--sg-y)}
+.visit-onmap .kv dt,.visit-onmap .hours-row span:first-child{color:#B9BCC2}
+.visit-onmap .addr-line a{color:#F4F1EA}
+.nav-lead{font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.12em;
+  text-transform:uppercase;color:#B9BCC2;margin:18px 0 0}
+/* on the map, the app buttons need their own solid ground */
+.visit-onmap .navapps a{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.28);color:#F4F1EA;
+  -webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%)}
+.visit-onmap .navapps a:hover{background:rgba(255,255,255,.2);border-color:#fff}
+@media(max-width:900px){
+  .visit-onmap .visit-grid{grid-template-columns:1fr}
+  .visit-onmap .map-scrim{background:linear-gradient(180deg,rgba(18,19,22,.9),rgba(18,19,22,.96))}
+}
+
+/* ── LEGIBILITY FLOOR ─────────────────────────────────────────────
+   The livery is a defining element and stays at full size. Instead of
+   shrinking it, we lay a feathered paper scrim UNDER the text column so
+   copy never sits on the stripe. Sits inside .wrap's stacking context
+   (created by container-type), so it covers the sweep but not the text. */
+.page-hero .wrap::before,.hero .wrap::before{
+  content:"";position:absolute;z-index:-1;pointer-events:none;
+  top:-40px;bottom:-40px;left:-50vw;right:34%;
+  background:linear-gradient(100deg,
+    var(--bg) 0%, var(--bg) 72%,
+    color-mix(in oklab, var(--bg) 78%, transparent) 86%,
+    color-mix(in oklab, var(--bg) 30%, transparent) 95%,
+    transparent 100%);
+}
+@supports not (color:color-mix(in oklab,red,blue)){
+  .page-hero .wrap::before,.hero .wrap::before{
+    background:linear-gradient(100deg,var(--bg) 0%,var(--bg) 74%,transparent 100%)}
+}
+@media(max-width:900px){
+  /* narrow: copy spans full width, so the scrim must too */
+  .page-hero .wrap::before,.hero .wrap::before{right:-10vw;
+    background:linear-gradient(180deg,var(--bg) 0%,var(--bg) 88%,transparent 100%)}
+}
+/* body copy on the hero was --muted over a busy field — lift it */
+.page-hero .intro{color:var(--fg);opacity:.86}
+
+/* ── PARALLAX + MOTION ────────────────────────────────────────────
+   Scroll-driven via animation-timeline: view() — runs on the compositor,
+   no scroll listeners. NB: scroll() on sticky children crashes the
+   compositor, so view() only. Everything is opt-out under reduced-motion. */
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    @keyframes plx-slow{from{transform:translate3d(0,-4%,0)}to{transform:translate3d(0,7%,0)}}
+    @keyframes plx-fast{from{transform:translate3d(0,-9%,0)}to{transform:translate3d(0,14%,0)}}
+    @keyframes rise{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
+    .page-hero .sweep,.hero .sweep{animation:plx-slow linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+    .commit-photo img,.svc-detail figure img,.row-media img{animation:plx-fast linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+    .section h2,.svc-detail,.commit-item,.fact,.qcard{animation:rise .7s cubic-bezier(.22,1,.36,1) both;animation-timeline:view();animation-range:entry 0% entry 46%}
+  }
+  /* hover: one transform-only transition, no filter interpolation (it snaps) */
+  .row,.fact,.qcard,.portal{transition:transform .34s cubic-bezier(.22,1,.36,1),box-shadow .34s ease}
+  .row:hover,.portal:hover{transform:translateY(-3px)}
+  .fact:hover,.qcard:hover{transform:translateY(-4px) scale(1.012)}
+  .navapps a,.soc a{transition:transform .22s cubic-bezier(.22,1,.36,1),color .22s ease}
+  .navapps a:hover,.soc a:hover{transform:translateY(-2px) scale(1.06)}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.strip-addr{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s ease}
+.strip-addr:hover,.strip-addr:focus-visible{border-bottom-color:currentColor}
+/* anchor target must clear the sticky nav */
+#map,#book{scroll-margin-top:clamp(96px,12vh,132px)}
+/* hero proof was rendering near-white on cream, and amber-on-amber */
+.hero-proof{color:var(--fg)}
+.hero-proof a,.hero-proof a b{color:var(--fg);text-decoration:none;
+  border-bottom:2px solid var(--accent);padding-bottom:1px}
+.hero-proof a:hover{border-bottom-color:var(--fg)}
+.hero-proof em{font-style:normal;color:var(--on-accent);background:var(--accent);
+  padding:0 .22em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* ── LIVERY FIT ───────────────────────────────────────────────────
+   Was `100% auto`: width filled, height did not, leaving a bare corner
+   at wide aspect ratios. `cover` guarantees the sweep bleeds every edge. */
+.sweep::before{background-size:cover!important;background-position:right bottom!important}
+.page-hero .sweep::before,.hero .sweep::before{background-size:cover!important;background-position:right bottom!important}
+@media(max-width:820px){
+  .sweep::before{background-size:cover!important;background-position:72% bottom!important}
+}
+
+/* ── HERO PROOF / SUB ─────────────────────────────────────────────
+   Was two stacked paragraphs behind a stray vertical rule. One tight
+   proof line, then the description. No competing blocks. */
+.hero-proof{margin-top:26px;max-width:52ch;font-size:1.06rem;color:var(--fg);
+  border:0;padding-left:0;display:block}
+.hero-proof::before,.hero-proof::after{display:none!important}
+.hero-proof b{font-weight:700}
+.hero-proof .hp-line{display:inline}
+.hero-sub{padding-top:26px;border-top:1px solid var(--line);margin-top:26px}
+.hero-sub p{max-width:46ch;font-size:1.06rem;color:var(--fg);opacity:.9}
+@media(max-width:820px){.hero-sub p{max-width:100%}}
+
+/* homepage featured reviews — three quotes, livery-colored top rules, then
+   the whole wall one click away. Sits in .sec-head so the label keeps its bar. */
+.feat-quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,2.5vw,34px);
+  margin:clamp(36px,4vw,56px) 0 clamp(30px,3.5vw,44px);position:relative;z-index:1}
+.fq{margin:0;padding:24px 0 0;border-top:3px solid var(--line-strong);display:flex;flex-direction:column;gap:13px}
+.fq:nth-child(1){border-top-color:var(--sg-y)}
+.fq:nth-child(2){border-top-color:var(--sg-o)}
+.fq:nth-child(3){border-top-color:var(--sg-r)}
+.fq-stars{color:var(--sg-r);font-size:.82rem;letter-spacing:.14em;line-height:1}
+.fq blockquote{margin:0;font-size:1.02rem;line-height:1.5}
+.fq figcaption{display:flex;align-items:baseline;gap:10px;margin-top:auto;padding-top:4px}
+.fq-name{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem}
+.fq-src{font-size:.72rem;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:860px){.feat-quotes{grid-template-columns:1fr;gap:24px}}
+
+/* ---- social row: brand-colored marks, motion on hover ---
+   NOTE: the .soc-* rules MUST carry .social-row a.soc-* (0,2,1). Bare
+   .soc-* is (0,1,0) and loses to the .social-row a (0,1,1) fallback
+   below, which silently renders every icon --muted gray. Verified in
+   the browser via getComputedStyle, not by grepping the file. ------------------
+   Hexes verified against current brand guidance Aug 2026. Nextdoor is
+   #19975D — the previous value predates their rebrand. Instagram and Google
+   carry their own fills (gradient / four-color) so --soc only drives their
+   hover chrome, not the glyph. */
+.social-row a{--soc:var(--muted);color:var(--soc);
+  transition:transform var(--t-ui,.22s) var(--e-press,cubic-bezier(.2,.7,.3,1)),
+    color var(--t-tap,.12s) ease,border-color var(--t-tap,.12s) ease,background var(--t-tap,.12s) ease}
+.social-row a svg{transition:transform var(--t-ui,.22s) var(--e-press,cubic-bezier(.2,.7,.3,1))}
+.social-row a.soc-fb{--soc:var(--brand-fb)}
+.social-row a.soc-ig{--soc:var(--brand-ig)}
+.social-row a.soc-nd{--soc:var(--brand-nd)}
+.social-row a.soc-yelp{--soc:var(--brand-yelp)}
+.social-row a.soc-venmo{--soc:var(--brand-venmo)}
+.social-row a.soc-google{--soc:var(--brand-google)}
+.social-row a:hover,.social-row a:focus-visible{color:var(--soc);border-color:var(--soc);
+  background:color-mix(in srgb,var(--soc) 12%,transparent);transform:translateY(-3px)}
+.social-row a:hover svg,.social-row a:focus-visible svg{transform:scale(1.12)}
+.social-row a:active{transform:translateY(-1px)}
+.social-row a:focus-visible{outline:2px solid var(--soc);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  .social-row a,.social-row a svg{transition:none}
+  .social-row a:hover,.social-row a:focus-visible,.social-row a:hover svg,
+  .social-row a:focus-visible svg,.social-row a:active{transform:none}}
+
+/* ── HERO PROOF LEGIBILITY — FINAL ────────────────────────────────
+   Twice I "fixed" this by setting colour on .hero-proof, the parent. But
+   .hero-proof b and .hero-proof em each carry their own colour declaration,
+   so nothing inherited and the text stayed #f4f1ea on #f2efe8 — a contrast
+   ratio of about 1.01:1, i.e. invisible, in production, for months.
+   These target the actual elements, sit last in the file, and were verified
+   with getComputedStyle on the live site rather than by reading the source. */
+.hero-proof b,
+.hero-proof a b{color:var(--fg)}
+.hero-proof a:hover b{color:var(--sg-r)}
+.hero-proof em,
+.hero-proof .hp-line em{color:var(--on-accent);background:var(--accent);
+  padding:0 .22em;border-radius:2px;box-shadow:none;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* Homepage hero: one opaque, full-bleed shop photograph with a separate
+   solid copy panel. The image is never faded to make the text readable. */
+.hero{overflow:hidden;min-height:0}
+.hero .hero-grid{position:absolute;inset:0;z-index:2;display:flex;align-items:center;width:100%;padding:clamp(28px,4vw,64px) 24px}
+.hero .hero-grid>*{max-width:none}
+.hero-copy{position:relative;flex:none;width:min(580px,48vw);min-width:0;padding:clamp(28px,3.5vw,48px);background:var(--bg);border:1px solid var(--line-strong);clip-path:var(--chamfer);box-shadow:0 24px 64px -42px rgba(23,24,27,.75);container-type:inline-size}
+.hero-copy::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:var(--livery)}
+.hero .hero-copy h1{font-size:clamp(2.4rem,7.2cqi,4.5rem)}
+.hero .hero-copy h1 .hl,.hero .hero-copy h1 em{display:block;white-space:normal;width:fit-content;max-width:100%}
+.hero .hero-copy .hero-sub{max-width:100%}
+.review-highlight{color:inherit;padding:0 .04em;background:linear-gradient(transparent 42%,rgba(255,194,31,.46) 42%,rgba(255,194,31,.46) 90%,transparent 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero-shop-photo{position:relative;z-index:0;display:block;width:100%;aspect-ratio:1853/1042;margin:0;overflow:hidden;background:#ddd}
+.hero-shop-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:1;filter:saturate(.94) contrast(1.03)}
+@keyframes hero-photo-depth{from{transform:scale(1.015) translateY(-.35%)}to{transform:scale(1.015) translateY(.35%)}}
+@media(prefers-reduced-motion:no-preference){
+  @supports(animation-timeline:view()){
+    .hero-shop-photo img{animation:hero-photo-depth linear both;animation-timeline:view();animation-range:cover 0% cover 100%;will-change:transform}
+  }
+}
+@media(max-width:899px){
+  .hero .hero-grid{position:relative;inset:auto;display:block;padding:clamp(42px,10vw,68px) 24px}
+  .hero-copy{width:100%;max-width:100%;padding:0;background:transparent;border:0;clip-path:none;box-shadow:none}
+  .hero-copy::before{display:none}
+  .hero-shop-photo img{object-position:50% 50%}
+}
+
+/* Shared header: keep all primary routes reachable without letting the fixed
+   wordmark, links, and phone control compete for the same horizontal space. */
+@media(max-width:1100px){
+  .nav-tel{display:none}
+}
+@media(min-width:861px) and (max-width:1100px){
+  .nav .wrap{gap:16px}
+}
+@media(max-width:860px){
+  .nav .wrap{min-height:auto;flex-wrap:wrap;justify-content:center;gap:8px;
+    padding:12px clamp(12px,3vw,24px) 10px}
+  .wordmark{width:100%;justify-content:center}
+  .nav-links{display:flex;width:100%;justify-content:center;flex-wrap:wrap;
+    gap:6px clamp(12px,4vw,28px);font-size:clamp(.68rem,2.8vw,.8rem)}
+}
+@media(max-width:560px){
+  .strip .wrap>span:first-child{display:none}
+  .strip .wrap{justify-content:center;padding-left:12px;padding-right:12px}
+}
+@media(max-width:400px){
+  .wordmark{font-size:clamp(.82rem,4.5vw,1.02rem)}
+  .wordmark-txt{margin-left:0}
+  .btn{max-width:100%;padding:14px 18px;text-align:center;white-space:normal;overflow-wrap:anywhere}
+  .svc-detail>div{min-width:0}
+  .slab{padding:24px 16px}
+  .slab-tel{font-size:clamp(1.15rem,8.5vw,1.65rem)}
+  .navapps li{flex:1 1 100%;min-width:0}
+  .navapps a{width:100%;justify-content:center}
+}
+@media(max-width:360px){
+  .svc-detail{grid-template-columns:minmax(0,1fr)}
+  .svc-detail aside{grid-column:1}
+  .callbar{grid-template-columns:minmax(0,1fr) 44px}
+  .callbar-btn{min-width:0;gap:6px;padding:0 8px;font-size:.95rem}
+  .callbar-alt{justify-content:center;padding:0}
+  .social-row{max-width:100%;flex-wrap:wrap;gap:8px}
+  .foot-base-left{min-width:0;width:100%}
+}

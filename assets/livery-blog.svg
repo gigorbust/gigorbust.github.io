@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 980" width="2200" height="980" fill="none">
+<defs>
+<linearGradient id="blog-char" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1F1F1F"/><stop offset="1" stop-color="#33383F"/></linearGradient>
+<linearGradient id="blog-navy" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#12325C"/><stop offset="1" stop-color="#1E4B85"/></linearGradient>
+<linearGradient id="blog-blue" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#1E5BC6"/><stop offset="1" stop-color="#3E82DD"/></linearGradient>
+<linearGradient id="blog-ice" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5AA9DB"/><stop offset="1" stop-color="#7CC0E6"/></linearGradient>
+<linearGradient id="blog-gold" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F0B429"/><stop offset="1" stop-color="#F7C64E"/></linearGradient>
+</defs>
+<path d="M -320.0,1300 L 2560,-615.2" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1300 L 2644,-659.8879999999999" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1300 L 2728,-704.5760000000002" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1300 L 2812,-749.2640000000001" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1300 L 2896,-793.9520000000002" stroke="#FBF9F4" stroke-width="96" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -320.0,1300 L 2560,-615.2" stroke="url(#blog-char)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -303.2,1300 L 2644,-659.8879999999999" stroke="url(#blog-navy)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -286.4,1300 L 2728,-704.5760000000002" stroke="url(#blog-blue)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -269.6,1300 L 2812,-749.2640000000001" stroke="url(#blog-ice)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M -252.8,1300 L 2896,-793.9520000000002" stroke="url(#blog-gold)" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
