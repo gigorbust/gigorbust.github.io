@@ -1349,3 +1349,15 @@ html.vt-out body{animation:vt-out 200ms var(--e-press) both}
 
 /* line-break guard: buttons balance instead of dropping a lone word */
 .btn{text-wrap:balance}
+
+/* Retina badge upgrade (logo-speed pass): on screens at 2x density or above,
+   the light theme paints the double-size dark badge instead of the 300px one,
+   so the footer and links-page hero badge stay sharp on retina phones. The
+   shine-sweep masks get the same upgrade in both themes. Additive only — the
+   1x rules above still serve non-retina screens. */
+@media (min-resolution:2dppx){
+  :root[data-theme="light"] .mark{content:url(/assets/logo-dark@2x.png)}
+  :root[data-theme="light"] .foot-mark{content:url(/assets/logo-dark@2x.png)}
+  :root[data-theme="light"] .mark-wrap::after{-webkit-mask-image:url(/assets/logo-dark@2x.png);mask-image:url(/assets/logo-dark@2x.png)}
+  .mark-wrap::after{-webkit-mask-image:url(/assets/logo@2x.png);mask-image:url(/assets/logo@2x.png)}
+}
